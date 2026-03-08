@@ -1,0 +1,33 @@
+# SBT build
+target/
+project/target/
+project/project/
+project/.bloop/
+.bloop/
+.metals/
+.scala-build/
+metals.sbt
+notebooks/
+
+# Local output
+tmp/
+
+# Logs
+logs/
+*.log
+
+# IDEs and editors
+.idea/
+*.iml
+.classpath
+.project
+.settings/
+.vscode/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Git
+.gitignore.swp
+
