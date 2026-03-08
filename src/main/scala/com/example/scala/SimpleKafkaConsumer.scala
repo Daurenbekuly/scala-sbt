@@ -1,6 +1,7 @@
 package com.example.scala
 
-import org.apache.spark.sql.SparkSession
+import org.apache.spark.sql.expressions.Window
+import org.apache.spark.sql.{Dataset, Row, SparkSession}
 import org.apache.spark.sql.functions._
 import org.apache.spark.sql.types._
 
@@ -49,9 +50,30 @@ object SimpleKafkaConsumer {
     val query = messages
       .writeStream
       .outputMode("append")
-      .format("iceberg")
-      .option("path", "rest.demo.kafka_users")
       .option("checkpointLocation", "/tmp/kafka-consumer-checkpoint")
+      .foreachBatch { (batchDF: Dataset[Row], _: Long) =>
+        if (!batchDF.isEmpty) {
+          val w =
+            Window.partitionBy("name")
+              .orderBy(col("age").desc)
+
+          val dedup =
+            df.withColumn("rn", row_number().over(w))
+              .filter(col("rn") === 1)
+              .drop("rn")
+
+          dedup.createOrReplaceTempView("batch_updates")
+          batchDF.sparkSession.sql(
+            """
+            MERGE INTO rest.demo.kafka_users t
+            USING batch_updates s
+            ON t.name = s.name
+            WHEN MATCHED THEN UPDATE SET t.age = s.age
+            WHEN NOT MATCHED THEN INSERT (name, age) VALUES (s.name, s.age)
+          """)
+        }
+        ()
+      }
       .start()
 
     query.awaitTermination()
