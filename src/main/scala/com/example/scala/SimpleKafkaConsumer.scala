@@ -53,14 +53,14 @@ object SimpleKafkaConsumer {
       .option("checkpointLocation", "/tmp/kafka-consumer-checkpoint")
       .foreachBatch { (batchDF: Dataset[Row], _: Long) =>
         if (!batchDF.isEmpty) {
-          val w =
-            Window.partitionBy("name")
-              .orderBy(col("age").desc)
+          val ws = Window
+            .partitionBy(col("name"))
+            .orderBy(col("age").desc)
 
-          val dedup =
-            df.withColumn("rn", row_number().over(w))
-              .filter(col("rn") === 1)
-              .drop("rn")
+          val dedup = batchDF
+            .withColumn("rn", row_number().over(ws))
+            .filter(col("rn") === 1)
+            .drop("rn")
 
           dedup.createOrReplaceTempView("batch_updates")
           batchDF.sparkSession.sql(

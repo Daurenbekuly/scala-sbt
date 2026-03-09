@@ -22,8 +22,7 @@ object IcebergRead {
       .config("spark.sql.catalog.rest.s3.secret-access-key", "password")
       .getOrCreate()
 
-    //    val df = spark.read.format("iceberg").load("rest.demo.kafka_users")
-    val df = spark.table("rest.demo.kafka_users")
+    val df = spark.table("rest.demo.kafka_users").orderBy(col("age").desc)
     df.show()
 
     spark.stop()

@@ -23,9 +23,9 @@ object IcebergWrite {
       .getOrCreate()
 
     val usersList = List(
-//      ("Alice", 35),
-//      ("Bob", 40),
-//      ("Charlie", 55),
+      ("Alice", 35),
+      ("Bob", 40),
+      ("Charlie", 55),
       ("Alibi", 28),
       ("Serzhan", 25),
       ("Aizharkyn", 38)
