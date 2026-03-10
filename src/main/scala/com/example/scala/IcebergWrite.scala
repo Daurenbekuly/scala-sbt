@@ -15,19 +15,15 @@ object IcebergWrite {
       ("Aizharkyn", 38)
     )
 
-    val df = spark.createDataFrame(usersList).toDF("name", "age")
-
-    spark.sql("CREATE NAMESPACE IF NOT EXISTS rest.demo")
-
-    df
+    spark.createDataFrame(usersList).toDF("name", "age")
       .coalesce(1)
       .writeTo("rest.demo.users")
       .using("iceberg")
       .createOrReplace()
 
-    val users = spark.table("rest.demo.users")
+    spark.sql("CREATE NAMESPACE IF NOT EXISTS rest.demo")
 
-    users
+    spark.table("rest.demo.users")
       .filter(col("age") >= 40)
       .coalesce(1)
       .writeTo("rest.demo.adult_users")

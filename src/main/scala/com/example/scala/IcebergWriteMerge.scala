@@ -18,17 +18,21 @@ object IcebergWriteMerge {
 
     spark.sql("CREATE NAMESPACE IF NOT EXISTS rest.demo")
 
-    val df1 = spark.createDataFrame(usersList1).toDF("name", "age")
-    df1
+    spark
+      .createDataFrame(usersList1)
+      .toDF("name", "age")
       .coalesce(1)
       .writeTo("rest.demo.merge_users")
       .using("iceberg")
       .createOrReplace()
 
-    val df2 = spark.createDataFrame(usersList2).toDF("name", "age")
-    df2.createOrReplaceTempView("updates")
+    spark
+      .createDataFrame(usersList2)
+      .toDF("name", "age")
+      .createOrReplaceTempView("updates")
 
-    spark.sql("""
+    spark.sql(
+      """
       MERGE INTO rest.demo.merge_users t
       USING updates s
       ON t.name = s.name

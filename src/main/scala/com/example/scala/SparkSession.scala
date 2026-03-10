@@ -18,6 +18,7 @@ object SparkSession {
       .config("spark.sql.catalog.rest.s3.path-style-access", "true")
       .config("spark.sql.catalog.rest.s3.access-key-id", "admin")
       .config("spark.sql.catalog.rest.s3.secret-access-key", "password")
+      .config("spark.sql.adaptive.enabled", "true")
       .getOrCreate()
   }
 }
