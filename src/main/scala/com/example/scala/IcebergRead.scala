@@ -7,7 +7,8 @@ object IcebergRead {
     val spark = SparkSession.getOrCreateDef()
 
     spark
-      .table("rest.demo.kafka_users")
+      .table("rest.demo.users_salted")
+      .filter(col("name") === "Alibi")
       .orderBy(col("age").desc)
       .show()
 
