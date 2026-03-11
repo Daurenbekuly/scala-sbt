@@ -15,7 +15,6 @@ object BroadcastJoin {
       (45, 200, "senior")
     ).toDF("age_min", "age_max", "segment")
 
-    // Broadcast join on age between ranges
     val joined =
       users
         .join(
@@ -24,7 +23,6 @@ object BroadcastJoin {
           joinType = "left"
         )
 
-    // Persist result into a new Iceberg table
     joined
       .writeTo("rest.demo.users_segmented")
       .using("iceberg")
