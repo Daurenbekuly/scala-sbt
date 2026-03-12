@@ -4,7 +4,7 @@ import org.apache.spark.sql.functions.{col, rand}
 
 object Repartition {
   def main(args: Array[String]): Unit = {
-    val spark = SparkSession.getOrCreateDef()
+    val spark = SparkSession.getOrCreateDef("Repartition")
 
     val numSalts = 8
 

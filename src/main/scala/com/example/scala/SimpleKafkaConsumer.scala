@@ -7,7 +7,7 @@ import org.apache.spark.sql.types._
 
 object SimpleKafkaConsumer {
   def main(args: Array[String]): Unit = {
-    val spark = SparkSession.getOrCreateDef()
+    val spark = SparkSession.getOrCreateDef("SimpleKafkaConsumer")
 
     val kafkaBootstrapServers = sys.env.getOrElse("KAFKA_BOOTSTRAP_SERVERS", "localhost:9092")
     val topic = sys.env.getOrElse("KAFKA_TOPIC", "my-topic")

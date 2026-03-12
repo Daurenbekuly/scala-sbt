@@ -2,7 +2,7 @@ package com.example.scala
 
 object IcebergWriteMerge {
   def main(args: Array[String]): Unit = {
-    val spark = SparkSession.getOrCreateDef()
+    val spark = SparkSession.getOrCreateDef("IcebergWriteMerge")
 
     val usersList1 = List(
       ("Alibi", 28),

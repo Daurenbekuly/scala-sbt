@@ -4,7 +4,7 @@ import org.apache.spark.sql.functions.col
 
 object IcebergRead {
   def main(args: Array[String]): Unit = {
-    val spark = SparkSession.getOrCreateDef()
+    val spark = SparkSession.getOrCreateDef("IcebergRead")
 
     spark
       .table("rest.demo.users_salted")

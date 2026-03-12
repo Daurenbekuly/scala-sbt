@@ -2,10 +2,10 @@ package com.example.scala
 
 object SparkSession {
 
-  def getOrCreateDef(): org.apache.spark.sql.SparkSession = synchronized {
+  def getOrCreateDef(appName: String): org.apache.spark.sql.SparkSession = synchronized {
     return org.apache.spark.sql.SparkSession
       .builder()
-      .appName("SimpleKafkaProducer")
+      .appName(appName)
       .master("local[*]")
       .config("spark.sql.extensions", "org.apache.iceberg.spark.extensions.IcebergSparkSessionExtensions")
       .config("spark.sql.catalog.rest", "org.apache.iceberg.spark.SparkCatalog")

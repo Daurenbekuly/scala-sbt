@@ -4,7 +4,7 @@ import org.apache.spark.sql.functions.col
 
 object IcebergWrite {
   def main(args: Array[String]): Unit = {
-    val spark = SparkSession.getOrCreateDef()
+    val spark = SparkSession.getOrCreateDef("IcebergWrite")
 
     val usersList = List(
       ("Alice", 35),

@@ -4,7 +4,7 @@ import org.apache.spark.sql.functions.{broadcast, col}
 
 object BroadcastJoin {
   def main(args: Array[String]): Unit = {
-    val spark = SparkSession.getOrCreateDef()
+    val spark = SparkSession.getOrCreateDef("BroadcastJoin")
 
     val users = spark.table("rest.demo.users")
 

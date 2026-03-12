@@ -4,7 +4,7 @@ import org.apache.spark.sql.functions._
 
 object SimpleKafkaProducer {
   def main(args: Array[String]): Unit = {
-    val spark = SparkSession.getOrCreateDef();
+    val spark = SparkSession.getOrCreateDef("SimpleKafkaProducer");
 
     val kafkaBootstrapServers = sys.env.getOrElse("KAFKA_BOOTSTRAP_SERVERS", "localhost:9092")
 
