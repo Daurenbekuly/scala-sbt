@@ -34,13 +34,13 @@ object IcebergWrite {
       .using("iceberg")
       .createOrReplace()
 
-    spark
-      .table("rest.demo.users")
-      .filter(col("age") >= 40)
-      .coalesce(1)
-      .writeTo("rest.demo.adult_users")
-      .using("iceberg")
-      .createOrReplace()
+//    spark
+//      .table("rest.demo.users")
+//      .filter(col("age") >= 40)
+//      .coalesce(1)
+//      .writeTo("rest.demo.adult_users")
+//      .using("iceberg")
+//      .createOrReplace()
 
     spark.stop()
   }
