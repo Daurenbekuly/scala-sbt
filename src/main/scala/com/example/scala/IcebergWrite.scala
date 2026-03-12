@@ -24,6 +24,8 @@ object IcebergWrite {
       ("Aizharkyn", 38)
     )
 
+    spark.sql("CREATE NAMESPACE IF NOT EXISTS rest.demo")
+
     spark
       .createDataFrame(usersList)
       .toDF("name", "age")
@@ -31,8 +33,6 @@ object IcebergWrite {
       .writeTo("rest.demo.users")
       .using("iceberg")
       .createOrReplace()
-
-    spark.sql("CREATE NAMESPACE IF NOT EXISTS rest.demo")
 
     spark
       .table("rest.demo.users")
