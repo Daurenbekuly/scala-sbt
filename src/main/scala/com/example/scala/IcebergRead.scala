@@ -7,9 +7,8 @@ object IcebergRead {
     val spark = SparkSession.getOrCreateDef("IcebergRead")
 
     spark
-      .table("rest.demo.users_salted")
-      .filter(col("name") === "Alibi")
-      .orderBy(col("age").desc)
+      .table("rest.medallion.silver_hub_order")
+      .filter("order_date >= '2025-01-01' AND order_date < '2025-02-01'")
       .show()
 
     spark.stop()
